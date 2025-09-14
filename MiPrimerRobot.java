@@ -30,6 +30,9 @@ public class MiPrimerRobot implements Directions {
                 avenueGreen = 30;
                 streetGreen--;
             }
+            if (streetGreen == 12 && avenueGreen < 28){
+                avenueGreen = 23;
+            }
         }
     }
 }
