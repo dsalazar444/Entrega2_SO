@@ -5,6 +5,12 @@ class TransportRobot extends Robot implements Runnable {
     private int passengers;
     private int id;
 
+    public void turnRight(){
+        for(int i=0; i<3; i++){
+            turnLeft();
+        }
+    }
+
     public TransportRobot(int id, int street, int avenue, Direction dir, int beepers, Color color) {
         super(street, avenue, dir, beepers, color);
         this.id = id;
