@@ -1,3 +1,5 @@
+import java.util.concurrent.Semaphore;
+
 class TrafficController {
     private static Semaphore blueSection = new Semaphore(4, true);
     private static Semaphore greenSection = new Semaphore(6, true);

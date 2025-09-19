@@ -1,3 +1,6 @@
+import kareltherobot.*;
+import java.awt.Color;
+
 class TransportRobot extends Robot implements Runnable {
     private int passengers;
     private int id;
