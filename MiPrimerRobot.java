@@ -6,365 +6,79 @@ public class MiPrimerRobot implements Directions {
     public static void main(String[] args) {
         World.setDelay(10);
         World.readWorld("Mundo2.kwld");
-        World.setVisible(true);
+        World.setVisible(true);        
 
-        int streetBlue = 1;
-        int avenueBlue = 1;   
-        int streetGreen = 15;
-        int avenueGreen = 30;   
+        // --- BLOQUE 1: CREACIÓN DE ROBOTS ---
+        TransportRobot r0 = new TransportRobot(0, 1, 7, East, 0, Color.blue);
+        TransportRobot r1 = new TransportRobot(1, 1, 6, East, 0, Color.blue);
+        TransportRobot r2 = new TransportRobot(2, 1, 5, East, 0, Color.blue);
+        TransportRobot r3 = new TransportRobot(3, 1, 4, East, 0, Color.blue);
+        TransportRobot r4 = new TransportRobot(4, 1, 3, East, 0, Color.blue);
+        TransportRobot r5 = new TransportRobot(5, 1, 2, East, 0, Color.blue);
+        TransportRobot r6 = new TransportRobot(6, 1, 1, East, 0, Color.blue);
+        TransportRobot r7 = new TransportRobot(7, 2, 7, West, 0, Color.blue);
+        TransportRobot r8 = new TransportRobot(8, 2, 6, West, 0, Color.blue);
+        TransportRobot r9 = new TransportRobot(9, 2, 5, West, 0, Color.blue);
+        TransportRobot r10 = new TransportRobot(10, 2, 4, West, 0, Color.blue);
+        TransportRobot r11 = new TransportRobot(11, 2, 3, West, 0, Color.blue);
+        TransportRobot r12 = new TransportRobot(12, 2, 2, West, 0, Color.blue);
+        TransportRobot r13 = new TransportRobot(13, 2, 1, South, 0, Color.blue);
+        TransportRobot r14 = new TransportRobot(14, 3, 7, South, 0, Color.blue);
+        TransportRobot r15 = new TransportRobot(15, 3, 6, East, 0, Color.blue);
+        TransportRobot r16 = new TransportRobot(16, 3, 5, East, 0, Color.blue);
+        TransportRobot r17 = new TransportRobot(17, 3, 4, East, 0, Color.blue);
+        TransportRobot r18 = new TransportRobot(18, 3, 3, East, 0, Color.blue);
+        TransportRobot r19 = new TransportRobot(19, 3, 2, East, 0, Color.blue);
+        TransportRobot r20 = new TransportRobot(20, 3, 1, East, 0, Color.blue);
+        TransportRobot r21 = new TransportRobot(21, 4, 7, West, 0, Color.blue);
+        TransportRobot r22 = new TransportRobot(22, 4, 6, West, 0, Color.blue);
+        TransportRobot r23 = new TransportRobot(23, 4, 5, West, 0, Color.blue);
+        TransportRobot r24 = new TransportRobot(24, 4, 4, West, 0, Color.blue);
+        TransportRobot r25 = new TransportRobot(25, 4, 3, West, 0, Color.blue);
+        TransportRobot r26 = new TransportRobot(26, 4, 2, West, 0, Color.blue);
+        TransportRobot r27 = new TransportRobot(27, 4, 1, South, 0, Color.blue);
+        TransportRobot r28 = new TransportRobot(28, 12, 23, South, 0, Color.green);
+        TransportRobot r29 = new TransportRobot(29, 13, 23, South, 0, Color.green);
+        TransportRobot r30 = new TransportRobot(30, 13, 24, West, 0, Color.green);
+        TransportRobot r31 = new TransportRobot(31, 13, 25, West, 0, Color.green);
+        TransportRobot r32 = new TransportRobot(32, 13, 26, West, 0, Color.green);
+        TransportRobot r33 = new TransportRobot(33, 13, 27, West, 0, Color.green);
+        TransportRobot r34 = new TransportRobot(34, 13, 28, West, 0, Color.green);
+        TransportRobot r35 = new TransportRobot(35, 12, 28, North, 0, Color.green);
+        TransportRobot r36 = new TransportRobot(36, 12, 29, West, 0, Color.green);
+        TransportRobot r37 = new TransportRobot(37, 13, 29, South, 0, Color.green);
+        TransportRobot r38 = new TransportRobot(38, 14, 23, East, 0, Color.green);
+        TransportRobot r39 = new TransportRobot(39, 14, 24, East, 0, Color.green);
+        TransportRobot r40 = new TransportRobot(40, 14, 25, East, 0, Color.green);
+        TransportRobot r41 = new TransportRobot(41, 14, 26, East, 0, Color.green);
+        TransportRobot r42 = new TransportRobot(42, 14, 27, East, 0, Color.green);
+        TransportRobot r43 = new TransportRobot(43, 14, 28, East, 0, Color.green);
+        TransportRobot r44 = new TransportRobot(44, 14, 29, South, 0, Color.green);
+        TransportRobot r45 = new TransportRobot(45, 15, 23, South, 0, Color.green);
+        TransportRobot r46 = new TransportRobot(46, 15, 24, West, 0, Color.green);
+        TransportRobot r47 = new TransportRobot(47, 15, 25, West, 0, Color.green);
+        TransportRobot r48 = new TransportRobot(48, 15, 26, West, 0, Color.green);
+        TransportRobot r49 = new TransportRobot(49, 15, 27, West, 0, Color.green);
+        TransportRobot r50 = new TransportRobot(50, 15, 28, West, 0, Color.green);
+        TransportRobot r51 = new TransportRobot(51, 15, 29, West, 0, Color.green);
+        TransportRobot r52 = new TransportRobot(52, 16, 29, South, 0, Color.green);
+        TransportRobot r53 = new TransportRobot(53, 16, 30, West, 0, Color.green);
+        TransportRobot r54 = new TransportRobot(54, 15, 30, North, 0, Color.green);
+        TransportRobot r55 = new TransportRobot(55, 14, 30, North, 0, Color.green);
 
-        for (int i = 0; i < 28; i++) {     
-            TransportRobot r = new TransportRobot(i, streetBlue, avenueBlue, East, 0, Color.blue);
-            new Thread(r).start();
-            avenueBlue++; 
-            if (avenueBlue > 7) {
-                avenueBlue = 1;
-                streetBlue ++;
-            }
+        TransportRobot[] robots = {
+        r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27,
+        r28, r29, r30, r31, r32, r33, r34, r35, r36, r37, r38, r39, r40, r41, r42, r43, r44, r45, r46, r47, r48, r49, r50, r51, r52, r53, r54, r55
+        };
+
+        for (TransportRobot robot : robots) {
+            new Thread(robot).start();
         }
-
-        /*for (int i = 0; i < 28; i++) {
-            TransportRobot r = new TransportRobot(i+28, streetGreen, avenueGreen, West, 0, Color.green);
-            new Thread(r).start();
-            avenueGreen--;
-            if (avenueGreen < 23) {
-                avenueGreen = 30;
-                streetGreen--;
-            }
-            if (streetGreen == 12 && avenueGreen < 28){
-                avenueGreen = 23;
-            }
-        }*/
-    }
-
-    // ------------------- CAMINOS ---------------------
-
-        // Zona Azul - Camino Rápido 
-        public static void caminoAzulRapido(TransportRobot r) {
-            for(int i=0; i<23; i++) r.move(); 
-            r.turnLeft();
-            for(int i=0; i<11; i++) r.move(); 
-            
-            while(r.anyBeepersInBeeperBag()) r.putBeeper();
-
-            for(int i=0; i<4; i++) r.move(); 
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<6; i++) r.move();
- 
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<6; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<2; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-        }
-        // Zona Verde - Camino Rápido 
-        public static void caminoVerdeRapido(TransportRobot r) {
-            for(int i=0; i<2; i++) r.move(); 
-            r.turnLeft();
-            for(int i=0; i<7; i++) r.move(); 
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.move(); 
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move(); 
-            r.turnLeft();
-            for(int i=0; i<4; i++) r.move(); 
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<3; i++) r.move(); 
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move(); 
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<7; i++) r.move();
-            
-            while(r.anyBeepersInBeeperBag()) r.putBeeper();
-
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<2; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<7; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.move();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.move();
-        }
-
-        // Zona Azul - Camino Largo 
-        public static void caminoAzulLargo(TransportRobot r) {
-            for(int i=0; i<4; i++) r.move(); 
-            r.turnLeft(); 
-            for(int i=0; i<10; i++) r.move(); 
-            r.turnLeft();
-            for(int i=0; i<3; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<3; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<8; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<4; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<3; i++) r.move();
-            r.turnLeft();
-            
-            for(int i=0; i<5; i++) r.move();
-            
-            r.turnLeft();
-            for(int i=0; i<7; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<10; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<2; i++) r.move();
-            while(r.anyBeepersInBeeperBag()) r.putBeeper();
-
-            for(int i=0; i<4; i++) r.move(); 
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<6; i++) r.move();
- 
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<6; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<2; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.move();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.move();
-        }
-        // Zona Verde - Camino Largo 
-        public static void caminoVerdeLargo(TransportRobot r) {
-            r.move();
-            r.turnLeft(); 
-            r.turnLeft(); 
-            r.turnLeft();
-            
-
-            for (int i=0; i<3; i++) r.move();
-            r.turnLeft(); 
-            r.turnLeft();
-            r.turnLeft();
-            for (int i=0; i<8; i++) r.move();
-
-            r.turnLeft();
-            for (int i=0; i<2; i++) r.move();
-
-            r.turnLeft();
-            for (int i=0; i<4; i++) r.move();
-
-            r.turnLeft(); 
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<17; i++) r.move();
-
-            r.turnLeft();
-            for (int i=0; i<5; i++) r.move();
-            
-            r.turnLeft();
-            for (int i=0; i<9; i++) r.move();
-            r.turnLeft(); 
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<8; i++) r.move();
-
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.move();
-            
-
-            while(r.anyBeepersInBeeperBag()) r.putBeeper();
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<2; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<7; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.move();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.move();
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.move();
-
     }
 
 }
 
-// CLASES ADICIONALES
-
-class TransportRobot extends Robot implements Runnable {
-    private int passengers;
-    private int id;
-
-    public TransportRobot(int id, int street, int avenue, Direction dir, int beepers, Color color) {
-        super(street, avenue, dir, beepers, color);
-        this.id = id;
-        this.passengers = 0;
-        World.setupThread(this);
-    }
-
-     public static boolean estaEnPosicion(KJRTest Posicion,UrRobot robot, int calle, int avenida) {
-        try {
-            Posicion.assertOnStreet(robot,calle);   // Falla si no está en esa calle
-            Posicion.assertOnAvenue(robot,avenida); // Falla si no está en esa avenida
-            return true; // Si no falló, está en esa posición
-            } catch (AssertionError e) {
-            return false; // Si alguna falla, no está en esa posición
-            }
-    }
-    private void elegirCaminoSegunPosicion() {
-        if (nextToABeeper()) {
-            java.util.Random rand = new java.util.Random();
-            KJRTest Posicion = new KJRTest();
-            if (estaEnPosicion(Posicion, this, 1, 7)) {
-                if (rand.nextBoolean()) {
-                    MiPrimerRobot.caminoAzulRapido(this);
-                } else {
-                    MiPrimerRobot.caminoAzulLargo(this);
-                }
-            } else if (estaEnPosicion(Posicion, this, 12, 23)) {
-                if (rand.nextBoolean()) {
-                    MiPrimerRobot.caminoVerdeRapido(this);
-                } else {
-                    MiPrimerRobot.caminoVerdeLargo(this);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            if (anyBeepersInBeeperBag() || loadPassengers()) {
-                elegirCaminoSegunPosicion();
-                int count = 0;
-                while (count < 4) {
-                    pickBeeper();
-                    count++;
-                }
-            } else {
-                turnOff();
-                break;
-            }
-        }
-    }
-
-    private boolean loadPassengers() {
-        while (passengers < 4 && nextToABeeper()) {
-            pickBeeper();
-            passengers++;
-        }
-        return passengers > 0;
-    }
-
-    private void unloadPassengers() {
-        while (passengers > 0) {
-            putBeeper();
-            passengers--;
-        }
-    }
-
-    private void moveToDestination() {
-        // lógica de las rutas (rápida o larga)
-    }
-
-    private void moveBackToOrigin() {
-        // la lógica de regreso (Otra ruta distinta a la inicial para que no estorbe (?))
-    }
-}
+// ...existing code...
 
 class TrafficController {
     private static Semaphore blueSection = new Semaphore(4, true);
