@@ -1,6 +1,7 @@
 import kareltherobot.*;
 import java.awt.Color;
 import java.lang.reflect.Field;
+import java.lang.String;
 
 class TransportRobot extends Robot implements Runnable {
     private int passengers;
@@ -26,157 +27,130 @@ class TransportRobot extends Robot implements Runnable {
     public int getStreet(){
         return this.street;
     }
+
+    public String getDirection(){
+        String dir="Default";
+        if (facingEast()){
+            dir="East";
+        }
+        if(facingNorth()){
+            dir="North";
+        }
+        if(facingWest()){
+            dir="West";
+        }
+        if(facingSouth()){
+            dir="South";
+        }
+        return dir;
+    }
     //De momento, sigo logica de moveRight, moveLeft (avanzamos en columna),
     //moveUp, moveDown (avanzamos en fila), para
     //evitar ambiguedad de moveLeft pero dependiendo de donde estemos mirando.
     
     public void moveRight() {
-        // 1. Orientarse hacia el Este
-        while(!facingEast()){
-            turnLeft();
-        }
-        
-        System.out.println("Robot " + id + ": Intentando moveRight desde (" + getStreet() + ", " + getAvenue() + ")");
+        // while(!facingEast()){ 
+        //     System.out.println("Debug - dirección actual: " + getDirection());
+        //     turnLeft(); 
+        // }
+        // System.out.println("Salí del while, dirección final: " + getDirection());
+
+        //System.out.println("Robot " + id + ": Intentando moveRight desde (" + getStreet() + ", " + getAvenue() + ")");
     
         int actualAvenue = getAvenue();
         int nextAvenue = actualAvenue + 1;
     
-        System.out.println("Robot " + id + ": Posición actual: " + actualAvenue + ", Posición siguiente: " + nextAvenue);
+        //System.out.println("Robot " + id + ": Posición actual: " + actualAvenue + ", Posición siguiente: " + nextAvenue);
     
         // SYNCHRONIZED: Solo un robot puede acceder a esta sección a la vez
         synchronized(TrafficController.map) {
-            System.out.println("Robot " + id + ": Entró al bloque synchronized.");
+            //System.out.println("Robot " + id + ": Entró al bloque synchronized.");
     
             if (nextAvenue >= TrafficController.map[0].length) {
                 System.out.println("Robot " + id + ": ERROR - nextAvenue (" + nextAvenue + ") está fuera de los límites del mapa.");
                 return; // Salir para evitar ArrayIndexOutOfBoundsException
             }
     
-            System.out.println("Robot " + id + ": Verificando mapa en [" + getStreet() + "][" + nextAvenue + "]. Valor: " + TrafficController.map[getStreet()][nextAvenue]);
+            //System.out.println("Robot " + id + ": Verificando mapa en [" + getStreet() + "][" + nextAvenue + "]. Valor: " + TrafficController.map[getStreet()][nextAvenue]);
     
             if(TrafficController.map[getStreet()][nextAvenue] == 0){
-                System.out.println("Robot " + id + ": La posición está libre. Procediendo a mover.");
+                //System.out.println("Robot " + id + ": La posición está libre. Procediendo a mover.");
                 // Primero reservamos la posición en el mapa
                 TrafficController.map[getStreet()][actualAvenue] = 0;
                 TrafficController.map[getStreet()][nextAvenue] = 1;
-                System.out.println("Robot " + id + ": Mapa actualizado. Posición anterior [" + getStreet() + "][" + actualAvenue + "] = 0, Nueva [" + getStreet() + "][" + nextAvenue + "] = 1");
+                //System.out.println("Robot " + id + ": Mapa actualizado. Posición anterior [" + getStreet() + "][" + actualAvenue + "] = 0, Nueva [" + getStreet() + "][" + nextAvenue + "] = 1");
     
                 // Luego hacemos el movimiento físico
                 move();
                 // Actualizar nuestras coordenadas después del movimiento
                 this.avenue = nextAvenue;
-                System.out.println("Robot " + id + ": Movimiento completado. Nueva posición interna: " + this.avenue);
+                //System.out.println("Robot " + id + ": Movimiento completado. Nueva posición interna: " + this.avenue);
             } else {
-                System.out.println("Robot " + id + ": La posición [" + getStreet() + "][" + nextAvenue + "] está OCUPADA. No se puede mover.");
+
+                //System.out.println("Robot " + id + ": La posición [" + getStreet() + "][" + nextAvenue + "] está OCUPADA. No se puede mover.");
             }
-            System.out.println("Verficiamos estado de posicion anterior ["+getStreet() + ","+ actualAvenue+ "]: " +TrafficController.map[getStreet()][actualAvenue] + "y de posicion actual ["+getStreet()+","+ nextAvenue+"]:" +TrafficController.map[getStreet()][nextAvenue]);
+            //System.out.println("Verficiamos estado de posicion anterior ["+getStreet() + ","+ actualAvenue+ "]: " +TrafficController.map[getStreet()][actualAvenue] + "y de posicion actual ["+getStreet()+","+ nextAvenue+"]:" +TrafficController.map[getStreet()][nextAvenue]);
         } // ← Aquí se libera automáticamente el bloqueo
-        System.out.println("Robot " + id + ": Salió del bloque synchronized.");
+        //System.out.println("Robot " + id + ": Salió del bloque synchronized.");
     }
 
     public void moveLeft(){
-        // 1. Orientarse hacia el Oeste
-        while(!facingWest()){
-            turnLeft();
-        }
+        // while(!facingWest()){ 
+        //     System.out.println("Debug - dirección actual: " + getDirection());
+        //     turnLeft(); 
+        // }
+        // System.out.println("Salí del while, dirección final: " + getDirection());
 
-        System.out.println("Robot " + id + ": Intentando moveLeft desde (" + getStreet() + ", " + getAvenue() + ")");
-        
-        // SYNCHRONIZED: Solo un robot puede acceder a esta sección a la vez
+    
         synchronized(TrafficController.map) {
-            System.out.println("Robot " + id + ": Entró al bloque synchronized (moveLeft).");
             int actualAvenue = getAvenue();
             int nextAvenue = actualAvenue - 1;
-
-            if (nextAvenue < 0) {
-                System.out.println("Robot " + id + ": ERROR - nextAvenue (" + nextAvenue + ") está fuera de los límites del mapa.");
-                return;
-            }
-
-            System.out.println("Robot " + id + ": Verificando mapa en [" + getStreet() + "][" + nextAvenue + "]. Valor: " + TrafficController.map[getStreet()][nextAvenue]);
-
             if(TrafficController.map[getStreet()][nextAvenue] == 0){
-                System.out.println("Robot " + id + ": La posición está libre. Procediendo a mover.");
                 TrafficController.map[getStreet()][actualAvenue] = 0;
                 TrafficController.map[getStreet()][nextAvenue] = 1;
-                
                 move();
-                this.avenue = nextAvenue; // Actualizar coordenadas
-                System.out.println("Robot " + id + ": Movimiento completado. Nueva posición interna: " + this.avenue);
-            } else {
-                System.out.println("Robot " + id + ": La posición [" + getStreet() + "][" + nextAvenue + "] está OCUPADA. No se puede mover.");
+                this.avenue = nextAvenue;
             }
         }
-        System.out.println("Robot " + id + ": Salió del bloque synchronized (moveLeft).");
     }
 
     public void moveUp(){
         // 1. Orientarse hacia el Norte
-        while(!facingNorth()){
-            turnLeft();
-        }
-
-        System.out.println("Robot " + id + ": Intentando moveUp desde (" + getStreet() + ", " + getAvenue() + ")");
+        // while(!facingNorth()){
+        //     System.out.println("no estoy mirando al norte (arriba) ");
+        //     turnLeft();
+        // }
 
          // 2. Moverse de forma segura
         synchronized(TrafficController.map) {
-            System.out.println("Robot " + id + ": Entró al bloque synchronized (moveUp).");
             int actualStreet = getStreet();
-            int nextStreet = actualStreet - 1; // En Karel, 'arriba' es disminuir el número de la calle
-
-            if (nextStreet < 0) {
-                System.out.println("Robot " + id + ": ERROR - nextStreet (" + nextStreet + ") está fuera de los límites del mapa.");
-                return;
-            }
-            
-            System.out.println("Robot " + id + ": Verificando mapa en [" + nextStreet + "][" + getAvenue() + "]. Valor: " + TrafficController.map[nextStreet][getAvenue()]);
-
+            int nextStreet = actualStreet + 1;
             if(TrafficController.map[nextStreet][getAvenue()] == 0){
-                System.out.println("Robot " + id + ": La posición está libre. Procediendo a mover.");
                 TrafficController.map[actualStreet][getAvenue()] = 0;
                 TrafficController.map[nextStreet][getAvenue()] = 1;
                 move();
                 this.street = nextStreet;
-                System.out.println("Robot " + id + ": Movimiento completado. Nueva posición interna: " + this.street);
-            } else {
-                 System.out.println("Robot " + id + ": La posición [" + nextStreet + "][" + getAvenue() + "] está OCUPADA. No se puede mover.");
             }
         }
-        System.out.println("Robot " + id + ": Salió del bloque synchronized (moveUp).");
     }
 
     public void moveDown(){
         // 1. Orientarse hacia el Sur
-        while(!facingSouth()){
-            turnLeft();
-        }
-
-        System.out.println("Robot " + id + ": Intentando moveDown desde (" + getStreet() + ", " + getAvenue() + ")");
-
+        // while (!facingSouth()) {
+        //     System.out.println("no estoy mirando al sur (abajo) ");
+        //     turnLeft();
+        // }
+    
         synchronized(TrafficController.map) {
-            System.out.println("Robot " + id + ": Entró al bloque synchronized (moveDown).");
             int actualStreet = getStreet();
-            int nextStreet = actualStreet + 1; // En Karel, 'abajo' es aumentar el número de la calle
-
-            if (nextStreet >= TrafficController.map.length) {
-                System.out.println("Robot " + id + ": ERROR - nextStreet (" + nextStreet + ") está fuera de los límites del mapa.");
-                return;
-            }
-
-            System.out.println("Robot " + id + ": Verificando mapa en [" + nextStreet + "][" + getAvenue() + "]. Valor: " + TrafficController.map[nextStreet][getAvenue()]);
-
+            int nextStreet = actualStreet - 1;
             if(TrafficController.map[nextStreet][getAvenue()] == 0){
-                System.out.println("Robot " + id + ": La posición está libre. Procediendo a mover.");
                 TrafficController.map[actualStreet][getAvenue()] = 0;
                 TrafficController.map[nextStreet][getAvenue()] = 1;
                 move();
-                this.street = nextStreet; // Actualizar coordenadas
-                System.out.println("Robot " + id + ": Movimiento completado. Nueva posición interna: " + this.street);
-            } else {
-                System.out.println("Robot " + id + ": La posición [" + nextStreet + "][" + getAvenue() + "] está OCUPADA. No se puede mover.");
+                this.street = nextStreet;
             }
         }
-        System.out.println("Robot " + id + ": Salió del bloque synchronized (moveDown).");
     }
     
 
@@ -209,15 +183,15 @@ class TransportRobot extends Robot implements Runnable {
             KJRTest Posicion = new KJRTest();
             if (estaEnPosicion(Posicion, this, 1, 7)) {
                 if (rand.nextBoolean()) {
-                    MiPrimerRobot.caminoAzulRapido(this);
+                    caminoAzulRapido();
                 } else {
-                    MiPrimerRobot.caminoAzulLargo(this);
+                    caminoAzulLargo();
                 }
             } else if (estaEnPosicion(Posicion, this, 12, 23)) {
                 if (rand.nextBoolean()) {
-                    MiPrimerRobot.caminoVerdeRapido(this);
+                    caminoVerdeRapido();
                 } else {
-                    MiPrimerRobot.caminoVerdeLargo(this);
+                    caminoVerdeLargo();
                 }
             }
         }
@@ -225,7 +199,14 @@ class TransportRobot extends Robot implements Runnable {
 
     @Override
     public void run(){
-        MiPrimerRobot.caminoAzulRapido(this);
+        //caminoAzulRapido();
+        // while (!facingSouth()) {
+        //     System.out.println("no estoy mirando al sur (abajo) ");
+        //     turnLeft();
+        //     System.out.println(facingSouth());
+        // }
+        // System.out.println("sali");
+        caminoAzulRapido();
     }
     // public void run() {
     //     while (true) {
@@ -264,5 +245,260 @@ class TransportRobot extends Robot implements Runnable {
 
     private void moveBackToOrigin() {
         // la lógica de regreso (Otra ruta distinta a la inicial para que no estorbe (?))
+    }
+
+    // ------------------- CAMINOS ---------------------
+
+    public void caminoAzulRapido() {
+        //moveRight
+        System.out.println("robot"+id+"Empiezo, Ya llamo a moveRigth,");
+        for(int i=0; i<23; i++) moveRight();
+        turnLeft();
+
+         
+        System.out.println("robot"+id+"Ya llamo a moveUp");
+        //moveUp
+        for(int i=0; i<11; i++) moveUp();   
+        
+        while(anyBeepersInBeeperBag()) putBeeper();
+
+        //moveUp
+        System.out.println("robot"+id+ "Ya llamo a moveUp again");
+        for(int i=0; i<4; i++) moveUp(); 
+        turnLeft();
+
+        //moveLeft
+        System.out.println("robot"+id+"Ya llamo a Left");
+        for(int i=0; i<1; i++) moveLeft();
+        turnLeft();
+
+        //movedown
+        System.out.println("robot"+id+"Ya llamo a down");
+        for(int i=0; i<1; i++) moveDown();
+        turnRight();
+        
+        
+        System.out.println("robot"+id+"Ya llamo a left");
+        for(int i=0; i<6; i++){
+            moveLeft();
+            System.out.println(i);
+        } 
+        turnLeft();
+
+        //movedown
+        System.out.println("robot"+id+"Ya llamo a down");
+        for(int i=0; i<1; i++) moveDown();
+        turnLeft();
+
+        //moveright
+        System.out.println("robot"+id+"Ya llamo a right");
+        for(int i=0; i<6; i++) moveRight();
+        turnRight();
+
+        //movedown
+        System.out.println("robot"+id+"Ya llamo a down");
+        for(int i=0; i<2; i++) moveDown();
+        turnRight();
+
+    
+        for(int i=0; i<1; i++) moveLeft();
+        turnRight();
+
+        //moveup
+        for(int i=0; i<1; i++) moveUp();
+        turnLeft();
+
+        //moveleft
+        for(int i=0; i<5; i++) moveLeft();
+        turnLeft();
+
+        //movedown
+        for(int i=0; i<1; i++) moveDown();
+    }
+
+
+        // Zona Verde - Camino Rápido 
+    public void caminoVerdeRapido() {
+
+        //movedown
+        for(int i=0; i<2; i++) move(); 
+        //turnLeft();
+
+        //moveright
+        for(int i=0; i<7; i++) move(); 
+        //turnRight();
+
+        //movedown
+        for(int i=0; i<5; i++) move(); 
+        //turnRight();
+
+        //moveleft
+        for(int i=0; i<1; i++) move(); 
+        //turnLeft();
+
+        //movedown
+        for(int i=0; i<4; i++) move(); 
+        //turnRight();
+
+        //moveleft
+        for(int i=0; i<3; i++) move(); 
+        //turnRight();
+
+        //moveup
+        for(int i=0; i<1; i++) move(); 
+        //turnLeft();
+
+        //moveleft
+        for(int i=0; i<5; i++) move();
+        //turnLeft();
+
+        //movedown
+        for(int i=0; i<1; i++) move();
+        //turnRight();
+
+        //moveleft
+        for(int i=0; i<5; i++) move();
+        //turnRight();
+
+        //moveup
+        for(int i=0; i<1; i++) move();
+        //turnLeft();
+
+        //moveleft
+        for(int i=0; i<7; i++) move();
+        
+        //descargamos
+        while(anyBeepersInBeeperBag()) putBeeper();
+
+        //moveup
+        for (int i=0; i<1; i++) move();
+        //turnRight();
+
+        //moveleft
+        for (int i=0; i<2; i++) move();
+        //turnLeft();
+
+        //movedown
+        for (int i=0; i<7; i++) move();
+        //turnLeft();
+
+        //moveright
+        for (int i=0; i<1; i++) move();
+        //turnLeft();
+        
+        //movedown
+        for (int i=0; i<6; i++) move();
+        //turnRight();
+        for (int i=0; i<1; i++) move();
+        //turnRight();
+        for (int i=0; i<6; i++) move();
+        //turnLeft();
+        for (int i=0; i<1; i++) move();
+        //turnLeft();
+        for (int i=0; i<6; i++) move();
+    }
+
+    // Zona Azul - Camino Largo 
+    public void caminoAzulLargo() {
+        for(int i=0; i<4; i++) move(); 
+        //turnLeft(); 
+        for(int i=0; i<10; i++) move(); 
+        //turnLeft();
+        for(int i=0; i<3; i++) move();
+        //turnRight();
+        for(int i=0; i<3; i++) move();
+        //turnRight();
+        for(int i=0; i<8; i++) move();
+        //turnRight();
+        for(int i=0; i<4; i++) move();
+        //turnRight();
+        for(int i=0; i<3; i++) move();
+        //turnLeft();
+        
+        for(int i=0; i<5; i++) move();
+        
+        //turnLeft();
+        for(int i=0; i<7; i++) move();
+        //turnLeft();
+        for(int i=0; i<5; i++) move();
+        //turnRight();
+        for(int i=0; i<10; i++) move();
+        //turnLeft();
+        for(int i=0; i<2; i++) move();
+        while(anyBeepersInBeeperBag()) putBeeper();
+
+        for(int i=0; i<4; i++) move(); 
+        //turnLeft();
+        for(int i=0; i<1; i++) move();
+        //turnLeft();
+        for(int i=0; i<1; i++) move();
+        //turnRight();
+        for(int i=0; i<6; i++) move();
+
+        //turnLeft();
+        for(int i=0; i<1; i++) move();
+        //turnLeft();
+        for(int i=0; i<6; i++) move();
+        //turnRight();
+        for(int i=0; i<2; i++) move();
+        //turnRight();
+        for(int i=0; i<1; i++) move();
+        //turnRight();
+        for(int i=0; i<1; i++) move();
+        //turnLeft();
+        for(int i=0; i<5; i++) move();
+        //turnLeft();
+        for(int i=0; i<1; i++) move();
+    }
+    // Zona Verde - Camino Largo 
+    public void caminoVerdeLargo() {
+        move();
+        //turnRight();
+        
+
+        for (int i=0; i<3; i++) move();
+        //turnRight();
+
+        for (int i=0; i<8; i++) move();
+
+        //turnLeft();
+        for (int i=0; i<2; i++) move();
+
+        //turnLeft();
+        for (int i=0; i<4; i++) move();
+
+        //turnRight();
+        for (int i=0; i<17; i++) move();
+
+        //turnLeft();
+        for (int i=0; i<5; i++) move();
+        
+        //turnLeft();
+        for (int i=0; i<9; i++) move();
+        //turnRight();
+        for (int i=0; i<8; i++) move();
+
+        //turnRight();
+        for (int i=0; i<1; i++) move();
+        
+
+        while(anyBeepersInBeeperBag()) putBeeper();
+        for (int i=0; i<1; i++) move();
+        //turnRight();
+        for (int i=0; i<2; i++) move();
+        //turnLeft();
+        for (int i=0; i<7; i++) move();
+        //turnLeft();
+        for (int i=0; i<1; i++) move();
+        //turnLeft();
+        for (int i=0; i<6; i++) move();
+        //turnRight();
+        for (int i=0; i<1; i++) move();
+        //turnRight();
+        for (int i=0; i<6; i++) move();
+        //turnLeft();
+        for (int i=0; i<1; i++) move();
+        //turnLeft();
+        for (int i=0; i<6; i++) move();
     }
 }
