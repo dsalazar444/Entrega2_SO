@@ -4,13 +4,29 @@ import java.awt.Color;
 class TransportRobot extends Robot implements Runnable {
     private int passengers;
     private int id;
+    private int street;   // posición actual en la fila
+    private int avenue;   // posición actual en la columna
 
     public TransportRobot(int id, int street, int avenue, Direction dir, int beepers, Color color) {
         super(street, avenue, dir, beepers, color);
         this.id = id;
         this.passengers = 0;
+        this.street = street;
+        this.avenue = avenue;
         World.setupThread(this);
+
+        // ocupar posición inicial en el mapa
+        try {
+            mapaOcupacion.ocupar(street, avenue);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
+    // getters opcionales
+    public int getStreet() { return street; }
+    public int getAvenue() { return avenue; }
+
 
     public static boolean estaEnPosicion(KJRTest Posicion, UrRobot robot, int calle, int avenida) {
         try {
@@ -21,6 +37,40 @@ class TransportRobot extends Robot implements Runnable {
             return false;
         }
     }
+    public void moverConControl() {
+        try {
+            int nuevaStreet = street;
+            int nuevaAvenue = avenue;
+
+            if (facingNorth()) {
+                nuevaStreet++;
+            } else if (facingSouth()) {
+                nuevaStreet--;
+            } else if (facingEast()) {
+                nuevaAvenue++;
+            } else if (facingWest()) {
+                nuevaAvenue--;
+            }
+
+            // ocupar la celda destino (bloquea hasta que esté libre)
+            mapaOcupacion.ocupar(nuevaStreet, nuevaAvenue);
+
+            
+            // mover físicamente
+            move();
+            
+            // liberar la actual
+            mapaOcupacion.liberar(street, avenue);
+
+            // actualizar coordenadas
+            street = nuevaStreet;
+            avenue = nuevaAvenue;
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void elegirCaminoSegunPosicion() {
         if (nextToABeeper()) {
