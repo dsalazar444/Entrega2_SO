@@ -17,7 +17,7 @@ public class MiPrimerRobot implements Directions {
         //Prueba
         int streetPrueba= 1;
         int avenuePrueba= 7;
-        TransportRobot esp2 = new TransportRobot(0, streetPrueba, avenuePrueba, East, 5, Color.red);
+        TransportRobot esp2 = new TransportRobot(0, streetPrueba, avenuePrueba, East, 0, Color.red);
         new Thread(esp2).start();
 
         TransportRobot r = new TransportRobot(1, 1, 8, East, 0, Color.blue);

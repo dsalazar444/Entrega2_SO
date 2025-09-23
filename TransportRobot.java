@@ -5,7 +5,7 @@ import java.lang.String;
 
 class TransportRobot extends Robot implements Runnable {
     private int passengers;
-    private int id;
+    public int id;
     // Mantenemos nuestras coordenadas sincronizadas con Karel
     private int avenue;
     private int street;
@@ -26,6 +26,14 @@ class TransportRobot extends Robot implements Runnable {
 
     public int getStreet(){
         return this.street;
+    }
+
+    public void setStreet(int street){
+        this.street = street;
+    }
+
+    public void setAvenue(int avenue){
+        this.avenue = avenue;
     }
 
     public String getDirection(){
@@ -49,49 +57,21 @@ class TransportRobot extends Robot implements Runnable {
     //evitar ambiguedad de moveLeft pero dependiendo de donde estemos mirando.
     
     public void moveRight() {
-        // while(!facingEast()){ 
-        //     System.out.println("Debug - dirección actual: " + getDirection());
-        //     turnLeft(); 
-        // }
-        // System.out.println("Salí del while, dirección final: " + getDirection());
-
-        //System.out.println("Robot " + id + ": Intentando moveRight desde (" + getStreet() + ", " + getAvenue() + ")");
-    
         int actualAvenue = getAvenue();
+        int actualStreet = getStreet();
         int nextAvenue = actualAvenue + 1;
-    
-        //System.out.println("Robot " + id + ": Posición actual: " + actualAvenue + ", Posición siguiente: " + nextAvenue);
-    
-        // SYNCHRONIZED: Solo un robot puede acceder a esta sección a la vez
-        synchronized(TrafficController.map) {
-            //System.out.println("Robot " + id + ": Entró al bloque synchronized.");
-    
-            if (nextAvenue >= TrafficController.map[0].length) {
-                System.out.println("Robot " + id + ": ERROR - nextAvenue (" + nextAvenue + ") está fuera de los límites del mapa.");
-                return; // Salir para evitar ArrayIndexOutOfBoundsException
-            }
-    
-            //System.out.println("Robot " + id + ": Verificando mapa en [" + getStreet() + "][" + nextAvenue + "]. Valor: " + TrafficController.map[getStreet()][nextAvenue]);
-    
-            if(TrafficController.map[getStreet()][nextAvenue] == 0){
-                //System.out.println("Robot " + id + ": La posición está libre. Procediendo a mover.");
-                // Primero reservamos la posición en el mapa
-                TrafficController.map[getStreet()][actualAvenue] = 0;
-                TrafficController.map[getStreet()][nextAvenue] = 1;
-                //System.out.println("Robot " + id + ": Mapa actualizado. Posición anterior [" + getStreet() + "][" + actualAvenue + "] = 0, Nueva [" + getStreet() + "][" + nextAvenue + "] = 1");
-    
-                // Luego hacemos el movimiento físico
-                move();
-                // Actualizar nuestras coordenadas después del movimiento
-                this.avenue = nextAvenue;
-                //System.out.println("Robot " + id + ": Movimiento completado. Nueva posición interna: " + this.avenue);
-            } else {
 
-                //System.out.println("Robot " + id + ": La posición [" + getStreet() + "][" + nextAvenue + "] está OCUPADA. No se puede mover.");
-            }
-            //System.out.println("Verficiamos estado de posicion anterior ["+getStreet() + ","+ actualAvenue+ "]: " +TrafficController.map[getStreet()][actualAvenue] + "y de posicion actual ["+getStreet()+","+ nextAvenue+"]:" +TrafficController.map[getStreet()][nextAvenue]);
-        } // ← Aquí se libera automáticamente el bloqueo
-        //System.out.println("Robot " + id + ": Salió del bloque synchronized.");
+        System.out.println("robot "+id + "entré a move Right");
+        //Verificamos que no se quiera salir del mapa
+        if (nextAvenue >= TrafficController.map[0].length) {
+            System.out.println("Robot " + id + ": ERROR - nextAvenue (" + nextAvenue + ") está fuera de los límites del mapa.");
+            return; // Salir para evitar ArrayIndexOutOfBoundsException
+        }
+        while(!TrafficController.tryMove(actualStreet, actualAvenue, actualStreet, nextAvenue, this)){
+            System.out.println("robot "+id+" no me pude mover");
+            //TrafficController.tryMove(actualStreet, actualAvenue, actualStreet, nextAvenue, this);
+        }
+        
     }
 
     public void moveLeft(){
@@ -99,20 +79,28 @@ class TransportRobot extends Robot implements Runnable {
         //     System.out.println("Debug - dirección actual: " + getDirection());
         //     turnLeft(); 
         // }
-        // System.out.println("Salí del while, dirección final: " + getDirection());
-
+        // System.out.println("Salí del while, dirección final: " +
+        // getDirection());
+        System.out.println("robot "+id + "entré a move Left");
+        int actualAvenue = getAvenue();
+        int actualStreet = getStreet();
+        int nextAvenue = actualAvenue - 1;
     
-        synchronized(TrafficController.map) {
-            int actualAvenue = getAvenue();
-            int nextAvenue = actualAvenue - 1;
-            if(TrafficController.map[getStreet()][nextAvenue] == 0){
-                TrafficController.map[getStreet()][actualAvenue] = 0;
-                TrafficController.map[getStreet()][nextAvenue] = 1;
-                move();
-                this.avenue = nextAvenue;
-            }
+        //Verificamos que no se quiera salir del mapa
+        if (nextAvenue < 0) {
+            System.out.println("Robot " + id + ": ERROR - nextAvenue (" + nextAvenue + ") está fuera de los límites del mapa.");
+            return; // Salir para evitar ArrayIndexOutOfBoundsException
         }
+
+        //TrafficController.tryMove(actualStreet, actualAvenue, actualStreet,nextAvenue, this);
+        while(!TrafficController.tryMove(actualStreet, actualAvenue, actualStreet,nextAvenue, this)){
+            System.out.println("robot "+id+" no me pude mover");
+            //TrafficController.tryMove(actualStreet, actualAvenue, actualStreet,nextAvenue, this);
+        }
+        
+        
     }
+    
 
     public void moveUp(){
         // 1. Orientarse hacia el Norte
@@ -120,17 +108,22 @@ class TransportRobot extends Robot implements Runnable {
         //     System.out.println("no estoy mirando al norte (arriba) ");
         //     turnLeft();
         // }
+        System.out.println("robot "+id + "entré a move Up");
 
-         // 2. Moverse de forma segura
-        synchronized(TrafficController.map) {
-            int actualStreet = getStreet();
-            int nextStreet = actualStreet + 1;
-            if(TrafficController.map[nextStreet][getAvenue()] == 0){
-                TrafficController.map[actualStreet][getAvenue()] = 0;
-                TrafficController.map[nextStreet][getAvenue()] = 1;
-                move();
-                this.street = nextStreet;
-            }
+        int actualAvenue = getAvenue();
+        int actualStreet = getStreet();
+        int nextStreet = actualStreet + 1;
+    
+        //Verificamos que no se quiera salir del mapa
+        if (nextStreet >= TrafficController.map.length) {
+            System.out.println("Robot " + id + ": ERROR - nextStreet (" + nextStreet + ") está fuera de los límites del mapa.");
+            return; // Salir para evitar ArrayIndexOutOfBoundsException
+        }
+
+        
+        while(!TrafficController.tryMove(actualStreet, actualAvenue, nextStreet, actualAvenue, this)){
+            System.out.println("robot "+id+" no me pude mover");
+            //TrafficController.tryMove(actualStreet, actualAvenue, nextStreet, actualAvenue, this);
         }
     }
 
@@ -140,16 +133,21 @@ class TransportRobot extends Robot implements Runnable {
         //     System.out.println("no estoy mirando al sur (abajo) ");
         //     turnLeft();
         // }
+        System.out.println("robot "+id + "entré a move Down");
+        int actualAvenue = getAvenue();
+        int actualStreet = getStreet();
+        int nextStreet = actualStreet - 1;
     
-        synchronized(TrafficController.map) {
-            int actualStreet = getStreet();
-            int nextStreet = actualStreet - 1;
-            if(TrafficController.map[nextStreet][getAvenue()] == 0){
-                TrafficController.map[actualStreet][getAvenue()] = 0;
-                TrafficController.map[nextStreet][getAvenue()] = 1;
-                move();
-                this.street = nextStreet;
-            }
+        //Verificamos que no se quiera salir del mapa
+        if (nextStreet < 0) {
+            System.out.println("Robot " + id + ": ERROR - nextStreet (" + nextStreet + ") está fuera de los límites del mapa.");
+            return; // Salir para evitar ArrayIndexOutOfBoundsException
+        }
+
+    
+        while(!TrafficController.tryMove(actualStreet, actualAvenue, nextStreet, actualAvenue, this)){
+            System.out.println("robot "+id+" no me pude mover");
+            //TrafficController.tryMove(actualStreet, actualAvenue, nextStreet, actualAvenue, this);
         }
     }
     
@@ -162,10 +160,12 @@ class TransportRobot extends Robot implements Runnable {
         this.avenue = avenue;
         this.street = street;
         World.setupThread(this);
+        
         //Marcamos como ocupada la posición en la que se crean.
-        synchronized (TrafficController.map) {
-            TrafficController.map[getStreet()][getAvenue()] = 1;
+        synchronized(TrafficController.cellLocks[street][avenue]) {
+        TrafficController.map[street][avenue] = 1;
         }
+
     }
 
      public static boolean estaEnPosicion(KJRTest Posicion,UrRobot robot, int calle, int avenida) {
@@ -279,10 +279,7 @@ class TransportRobot extends Robot implements Runnable {
         
         
         System.out.println("robot"+id+"Ya llamo a left");
-        for(int i=0; i<6; i++){
-            moveLeft();
-            System.out.println(i);
-        } 
+        for(int i=0; i<6; i++) moveLeft();
         turnLeft();
 
         //movedown
