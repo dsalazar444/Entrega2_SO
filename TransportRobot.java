@@ -6,6 +6,9 @@ class TransportRobot extends Robot implements Runnable {
     private int id;
     private int street;   // posición actual en la fila
     private int avenue;   // posición actual en la columna
+    private static final ZonasCriticas zonaCritica = new ZonasCriticas();
+    private static final ZonasCriticas zonaCritica2 = new ZonasCriticas();
+    private static final ZonasCriticas zonaCritica3 = new ZonasCriticas();
 
     public TransportRobot(int id, int street, int avenue, Direction dir, int beepers, Color color) {
         super(street, avenue, dir, beepers, color);
@@ -51,6 +54,28 @@ class TransportRobot extends Robot implements Runnable {
             } else if (facingWest()) {
                 nuevaAvenue--;
             }
+            
+            // --- salidas de las zonas críticas ---
+            // --- Zona 1 ---
+            KJRTest Posicion = new KJRTest();
+            if (estaEnPosicion(Posicion, this, 10, 29)) {
+                zonaCritica.entrarNorte();
+            } else if (estaEnPosicion(Posicion, this, 4, 30)) {
+                zonaCritica.entrarSur();
+            }
+            // --- Zona 2 ---
+            if (estaEnPosicion(Posicion, this, 2, 29)) {
+                zonaCritica2.entrarNorte();
+            } else if (estaEnPosicion(Posicion, this, 1, 25)) {
+                zonaCritica2.entrarSur();
+            }
+            // --- Zona 3 ---
+            if (estaEnPosicion(Posicion, this, 2, 21)) {
+                zonaCritica3.entrarNorte();
+            } else if (estaEnPosicion(Posicion, this, 1, 15)) {
+                zonaCritica3.entrarSur();
+            }
+
 
             // ocupar la celda destino (bloquea hasta que esté libre)
             mapaOcupacion.ocupar(nuevaStreet, nuevaAvenue);
@@ -61,7 +86,40 @@ class TransportRobot extends Robot implements Runnable {
             
             // liberar la actual
             mapaOcupacion.liberar(street, avenue);
+            
+            
+            // --- salidas de las zonas críticas ---
+            // --- Zona 1 ---
+            if (estaEnPosicion(Posicion, this, 10, 30)) {
+                zonaCritica.salirZona("SUR");
+            } else if (estaEnPosicion(Posicion, this, 5, 29)) {
+                zonaCritica.salirZona("NORTE");
+            } else if (estaEnPosicion(Posicion, this, 11, 30)) {
+                zonaCritica.salirZona("NORTE");
+            }
 
+            // --- Zona 2 ---
+            if (estaEnPosicion(Posicion, this, 1, 29)) {
+                zonaCritica2.salirZona("SUR");
+            } else if (estaEnPosicion(Posicion, this, 1, 26)) {
+                zonaCritica2.salirZona("NORTE");
+            }
+            // --- Zona 3 ---
+            if (estaEnPosicion(Posicion, this, 1, 21)) {
+                zonaCritica3.salirZona("SUR");
+                
+                int turno3sur = zonaCritica3.getTurno3sur();
+                String turno3= zonaCritica3.getTurno();
+                if(turno3.equals("SUR")){
+                    zonaCritica3.setTurno3sur(turno3sur + 1);
+                }
+                if (turno3sur % 4 == 0 && ((turno3sur / 4) % 2 == 1)) {
+                    zonaCritica3.setTurno("SUR");
+                }
+            System.out.println("Turno Zona 3: " + turno3sur);
+            } else if (estaEnPosicion(Posicion, this, 1, 16)) {
+                zonaCritica3.salirZona("NORTE");
+            }
             // actualizar coordenadas
             street = nuevaStreet;
             avenue = nuevaAvenue;
@@ -77,17 +135,9 @@ class TransportRobot extends Robot implements Runnable {
             java.util.Random rand = new java.util.Random();
             KJRTest Posicion = new KJRTest();
             if (estaEnPosicion(Posicion, this, 1, 7)) {
-                if (rand.nextBoolean()) {
-                    Utils.caminoAzulRapido(this);
-                } else {
-                    Utils.caminoAzulLargo(this);
-                }
+                Utils.caminoAzulRapido(this);
             } else if (estaEnPosicion(Posicion, this, 12, 23)) {
-                if (rand.nextBoolean()) {
-                    Utils.caminoVerdeRapido(this);
-                } else {
-                    Utils.caminoVerdeLargo(this);
-                }
+                Utils.caminoVerdeRapido(this);
             }
         }
     }
