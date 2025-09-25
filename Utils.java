@@ -245,42 +245,42 @@ public class Utils {
     }
     public static void arranqueVerde(TransportRobot r) {
         KJRTest Posicion = new KJRTest();
-        if (TransportRobot.estaEnPosicion(Posicion, r, 13, 23)) {
+        if (TransportRobot.estaEnPosicion( r, 13, 23)) {
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 13, 24)) {
+        if (TransportRobot.estaEnPosicion( r, 13, 24)) {
             r.moverConControl();
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 13, 25)) {
+        if (TransportRobot.estaEnPosicion( r, 13, 25)) {
             for(int i=0; i<2; i++) r.moverConControl();
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 13, 26)) {
+        if (TransportRobot.estaEnPosicion( r, 13, 26)) {
             for(int i=0; i<3; i++) r.moverConControl();
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 13, 27)) {
+        if (TransportRobot.estaEnPosicion( r, 13, 27)) {
             for(int i=0; i<4; i++) r.moverConControl();
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 13, 28)) {
+        if (TransportRobot.estaEnPosicion( r, 13, 28)) {
             for(int i=0; i<5; i++) r.moverConControl();
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 12, 28)) {
+        if (TransportRobot.estaEnPosicion( r, 12, 28)) {
             r.moverConControl();
             r.turnLeft();
             for(int i=0; i<5; i++) r.moverConControl();
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 12, 29)) {
+        if (TransportRobot.estaEnPosicion( r, 12, 29)) {
             r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -291,7 +291,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 13, 29)) {
+        if (TransportRobot.estaEnPosicion( r, 13, 29)) {
             r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -306,7 +306,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 29)) {
+        if (TransportRobot.estaEnPosicion( r, 14, 29)) {
             for(int i=0; i<2; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -321,27 +321,8 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 28)) {
+        if (TransportRobot.estaEnPosicion( r, 14, 28)) {
             for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<2; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.moverConControl();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.moverConControl(); 
-        }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 27)) {
-            for(int i=0; i<2; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft();
             r.turnLeft();
@@ -359,7 +340,26 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 26)) {
+        if (TransportRobot.estaEnPosicion( r, 14, 27)) {
+            for(int i=0; i<2; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            for(int i=0; i<2; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            for(int i=0; i<5; i++) r.moverConControl();
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl(); 
+        }
+        if (TransportRobot.estaEnPosicion( r, 14, 26)) {
             for(int i=0; i<3; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -378,7 +378,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 25)) {
+        if (TransportRobot.estaEnPosicion( r, 14, 25)) {
             for(int i=0; i<4; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -397,7 +397,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 24)) {
+        if (TransportRobot.estaEnPosicion( r, 14, 24)) {
             for(int i=0; i<5; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -416,7 +416,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 23)) {
+        if (TransportRobot.estaEnPosicion( r, 14, 23)) {
             for(int i=0; i<6; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -435,7 +435,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 23)) {
+        if (TransportRobot.estaEnPosicion( r, 15, 23)) {
             for(int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for(int i=0; i<6; i++) r.moverConControl();
@@ -456,7 +456,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 24)) {
+        if (TransportRobot.estaEnPosicion( r, 15, 24)) {
             for(int i=0; i<1; i++) r.moverConControl();
  
             r.turnLeft();
@@ -480,7 +480,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 25)) {
+        if (TransportRobot.estaEnPosicion( r, 15, 25)) {
             for(int i=0; i<2; i++) r.moverConControl();
  
             r.turnLeft();
@@ -504,7 +504,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 26)) {
+        if (TransportRobot.estaEnPosicion( r, 15, 26)) {
             for(int i=0; i<3; i++) r.moverConControl();
  
             r.turnLeft();
@@ -528,7 +528,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 27)) {
+        if (TransportRobot.estaEnPosicion( r, 15, 27)) {
             for(int i=0; i<4; i++) r.moverConControl();
  
             r.turnLeft();
@@ -552,7 +552,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 28)) {
+        if (TransportRobot.estaEnPosicion( r, 15, 28)) {
             for(int i=0; i<5; i++) r.moverConControl();
  
             r.turnLeft();
@@ -576,7 +576,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 29)) {
+        if (TransportRobot.estaEnPosicion( r, 15, 29)) {
             for(int i=0; i<6; i++) r.moverConControl();
  
             r.turnLeft();
@@ -600,37 +600,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 16, 29)) {
-            for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<6; i++) r.moverConControl();
- 
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            for(int i=0; i<6; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<2; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            for(int i=0; i<5; i++) r.moverConControl();
-            r.turnLeft();
-            for(int i=0; i<1; i++) r.moverConControl(); 
-        }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 16, 30)) {
-            for(int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
+        if (TransportRobot.estaEnPosicion( r, 16, 29)) {
             for(int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft();
@@ -658,7 +628,37 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 15, 30)) {
+        if (TransportRobot.estaEnPosicion( r, 16, 30)) {
+            for(int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            for(int i=0; i<6; i++) r.moverConControl();
+ 
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            for(int i=0; i<6; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            for(int i=0; i<2; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft();
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            for(int i=0; i<5; i++) r.moverConControl();
+            r.turnLeft();
+            for(int i=0; i<1; i++) r.moverConControl(); 
+        }
+        if (TransportRobot.estaEnPosicion( r, 15, 30)) {
             
             for(int i=0; i<1; i++) r.moverConControl(); 
             r.turnLeft();
@@ -691,7 +691,7 @@ public class Utils {
             r.turnLeft();
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 14, 30)) {
+        if (TransportRobot.estaEnPosicion( r, 14, 30)) {
             
             for(int i=0; i<2; i++) r.moverConControl(); 
             r.turnLeft();
@@ -727,72 +727,72 @@ public class Utils {
     }
     public static void arranqueAzul(TransportRobot r) {
         KJRTest Posicion = new KJRTest();
-        if (TransportRobot.estaEnPosicion(Posicion, r, 1, 6)) {
+        if (TransportRobot.estaEnPosicion( r, 1, 6)) {
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 1, 5)) {
+        if (TransportRobot.estaEnPosicion( r, 1, 5)) {
             for(int i=0; i<2; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 1, 4)) {
+        if (TransportRobot.estaEnPosicion( r, 1, 4)) {
             for(int i=0; i<3; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 1, 3)) {
+        if (TransportRobot.estaEnPosicion( r, 1, 3)) {
             for(int i=0; i<4; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 1, 2)) {
+        if (TransportRobot.estaEnPosicion( r, 1, 2)) {
             for(int i=0; i<5; i++) r.moverConControl(); 
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 1, 1)) {
+        if (TransportRobot.estaEnPosicion( r, 1, 1)) {
             for(int i=0; i<6; i++) r.moverConControl(); 
         }
-         if (TransportRobot.estaEnPosicion(Posicion, r, 2, 1)) {
+         if (TransportRobot.estaEnPosicion( r, 2, 1)) {
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-         if (TransportRobot.estaEnPosicion(Posicion, r, 2, 2)) {
+         if (TransportRobot.estaEnPosicion( r, 2, 2)) {
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-         if (TransportRobot.estaEnPosicion(Posicion, r, 2, 3)) {
+         if (TransportRobot.estaEnPosicion( r, 2, 3)) {
             for (int i=0; i<2; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-         if (TransportRobot.estaEnPosicion(Posicion, r, 2, 4)) {
+         if (TransportRobot.estaEnPosicion( r, 2, 4)) {
             for (int i=0; i<3; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-         if (TransportRobot.estaEnPosicion(Posicion, r, 2, 5)) {
+         if (TransportRobot.estaEnPosicion( r, 2, 5)) {
             for (int i=0; i<4; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-         if (TransportRobot.estaEnPosicion(Posicion, r, 2, 6)) {
+         if (TransportRobot.estaEnPosicion( r, 2, 6)) {
             for (int i=0; i<5; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 2, 7)) {
+        if (TransportRobot.estaEnPosicion( r, 2, 7)) {
             for (int i=0; i<6; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 3, 7)) {
+        if (TransportRobot.estaEnPosicion( r, 3, 7)) {
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft(); 
@@ -803,7 +803,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 3, 6)) {
+        if (TransportRobot.estaEnPosicion( r, 3, 6)) {
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft(); 
@@ -818,7 +818,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 3, 5)) {
+        if (TransportRobot.estaEnPosicion( r, 3, 5)) {
             for (int i=0; i<2; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft(); 
@@ -833,7 +833,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 3, 4)) {
+        if (TransportRobot.estaEnPosicion( r, 3, 4)) {
             for (int i=0; i<3; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft(); 
@@ -848,7 +848,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 3,3)) {
+        if (TransportRobot.estaEnPosicion( r, 3,3)) {
             for (int i=0; i<4; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft(); 
@@ -863,7 +863,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 3, 2)) {
+        if (TransportRobot.estaEnPosicion( r, 3, 2)) {
             for (int i=0; i<5; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft(); 
@@ -878,7 +878,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 3, 1)) {
+        if (TransportRobot.estaEnPosicion( r, 3, 1)) {
             for (int i=0; i<6; i++) r.moverConControl();
             r.turnLeft();
             r.turnLeft(); 
@@ -893,26 +893,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 4, 1)) {
-            for (int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            r.turnLeft(); 
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.moverConControl();
-            r.turnLeft();
-            for (int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
-            for (int i=0; i<6; i++) r.moverConControl();
-        }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 4, 2)) {
-            for (int i=0; i<1; i++) r.moverConControl();
-            r.turnLeft();
+        if (TransportRobot.estaEnPosicion( r, 4, 1)) {
             for (int i=0; i<1; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
@@ -929,7 +910,26 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 4, 3)) {
+        if (TransportRobot.estaEnPosicion( r, 4, 2)) {
+            for (int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            for (int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            for (int i=0; i<6; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft(); 
+            r.turnLeft();
+            for (int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            r.turnLeft(); 
+            r.turnLeft();
+            for (int i=0; i<6; i++) r.moverConControl();
+            r.turnLeft();
+            for (int i=0; i<1; i++) r.moverConControl();
+            r.turnLeft();
+            for (int i=0; i<6; i++) r.moverConControl();
+        }
+        if (TransportRobot.estaEnPosicion( r, 4, 3)) {
             for (int i=0; i<2; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
@@ -948,7 +948,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 4, 4)) {
+        if (TransportRobot.estaEnPosicion( r, 4, 4)) {
             for (int i=0; i<3; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
@@ -967,7 +967,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 4, 5)) {
+        if (TransportRobot.estaEnPosicion( r, 4, 5)) {
             for (int i=0; i<4; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
@@ -986,7 +986,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 4, 6)) {
+        if (TransportRobot.estaEnPosicion( r, 4, 6)) {
             for (int i=0; i<5; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();
@@ -1005,7 +1005,7 @@ public class Utils {
             r.turnLeft();
             for (int i=0; i<6; i++) r.moverConControl();
         }
-        if (TransportRobot.estaEnPosicion(Posicion, r, 4, 7)) {
+        if (TransportRobot.estaEnPosicion( r, 4, 7)) {
             for (int i=0; i<6; i++) r.moverConControl();
             r.turnLeft();
             for (int i=0; i<1; i++) r.moverConControl();

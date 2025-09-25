@@ -20,4 +20,18 @@ public class mapaOcupacion {
     public static void liberar(int fila, int columna) {
         grid[fila- 1][columna- 1].release(); // libera la celda
     }
+    public static boolean estaOcupado(int fila, int columna) {
+        return grid[fila - 1][columna - 1].availablePermits() == 0;
+    }
+
+    public static int contarRobotsEnFranja(int calle, int avenidaInicio, int avenidaFin) {
+    int contador = 0;
+    for (int avenida = avenidaInicio; avenida <= avenidaFin; avenida++) {
+        if (estaOcupado(calle, avenida)) {
+            contador++;
+        }
+    }
+    return contador;
+    }
+
 }

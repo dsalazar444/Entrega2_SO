@@ -6,6 +6,8 @@ class TransportRobot extends Robot implements Runnable {
     private int id;
     private int street;   // posición actual en la fila
     private int avenue;   // posición actual en la columna
+    private boolean pasoPor1123 = false;
+    private boolean pasoPor430 = false;
     private static final ZonasCriticas zonaCritica = new ZonasCriticas();
     private static final ZonasCriticas zonaCritica2 = new ZonasCriticas();
     private static final ZonasCriticas zonaCritica3 = new ZonasCriticas();
@@ -31,14 +33,8 @@ class TransportRobot extends Robot implements Runnable {
     public int getAvenue() { return avenue; }
 
 
-    public static boolean estaEnPosicion(KJRTest Posicion, UrRobot robot, int calle, int avenida) {
-        try {
-            Posicion.assertOnStreet(robot, calle);
-            Posicion.assertOnAvenue(robot, avenida);
-            return true;
-        } catch (AssertionError e) {
-            return false;
-        }
+    public static boolean estaEnPosicion(TransportRobot robot, int calle, int avenida) {
+        return robot.getStreet() == calle && robot.getAvenue() == avenida;
     }
     public void moverConControl() {
         try {
@@ -55,31 +51,58 @@ class TransportRobot extends Robot implements Runnable {
                 nuevaAvenue--;
             }
             
+            
             // --- salidas de las zonas críticas ---
             // --- Zona 1 ---
             KJRTest Posicion = new KJRTest();
-            if (estaEnPosicion(Posicion, this, 10, 29)) {
-                zonaCritica.entrarNorte();
-            } else if (estaEnPosicion(Posicion, this, 4, 30)) {
-                zonaCritica.entrarSur();
+            
+            if(estaEnPosicion( this, 4, 30)){
+                pasoPor430 = true;
+                Thread.sleep(100);
             }
+            if(estaEnPosicion( this, 11, 23)){
+                pasoPor1123 = true;
+            }
+
+            if (estaEnPosicion( this, 10, 29)) {
+                Thread.sleep(100);
+            }
+            if ((estaEnPosicion( this, 10, 29) && pasoPor1123)) {
+                zonaCritica.entrarNorte();
+                pasoPor1123 = false;
+                
+            } else if (estaEnPosicion( this, 4, 30)) {
+                Thread.sleep(500);
+                zonaCritica.entrarSur();
+                
+            }
+            
             // --- Zona 2 ---
-            if (estaEnPosicion(Posicion, this, 2, 29)) {
+            if (estaEnPosicion( this, 2, 29)) {
+                Thread.sleep(500);
                 zonaCritica2.entrarNorte();
-            } else if (estaEnPosicion(Posicion, this, 1, 25)) {
+                
+            } else if (estaEnPosicion( this, 1, 25)) {
+                Thread.sleep(500);
                 zonaCritica2.entrarSur();
+                
             }
             // --- Zona 3 ---
-            if (estaEnPosicion(Posicion, this, 2, 21)) {
+            if (estaEnPosicion( this, 2, 21)) {
+                Thread.sleep(500);
                 zonaCritica3.entrarNorte();
-            } else if (estaEnPosicion(Posicion, this, 1, 15)) {
+            } else if (estaEnPosicion( this, 1, 15)) {
+                Thread.sleep(500);
                 zonaCritica3.entrarSur();
             }
+            
 
 
             // ocupar la celda destino (bloquea hasta que esté libre)
-            mapaOcupacion.ocupar(nuevaStreet, nuevaAvenue);
+            Thread.sleep(50);
 
+            mapaOcupacion.ocupar(nuevaStreet, nuevaAvenue);
+            
             
             // mover físicamente
             move();
@@ -90,36 +113,31 @@ class TransportRobot extends Robot implements Runnable {
             
             // --- salidas de las zonas críticas ---
             // --- Zona 1 ---
-            if (estaEnPosicion(Posicion, this, 10, 30)) {
+
+            
+            if (estaEnPosicion( this, 10, 30) && pasoPor430) {
                 zonaCritica.salirZona("SUR");
-            } else if (estaEnPosicion(Posicion, this, 5, 29)) {
+                pasoPor430 = false;
+            } else if (estaEnPosicion( this, 5, 29) ) {
                 zonaCritica.salirZona("NORTE");
-            } else if (estaEnPosicion(Posicion, this, 11, 30)) {
-                zonaCritica.salirZona("NORTE");
-            }
+            } 
 
             // --- Zona 2 ---
-            if (estaEnPosicion(Posicion, this, 1, 29)) {
+            if (estaEnPosicion( this, 1, 29)) {
                 zonaCritica2.salirZona("SUR");
-            } else if (estaEnPosicion(Posicion, this, 1, 26)) {
+            } else if (estaEnPosicion( this, 1, 26)) {
                 zonaCritica2.salirZona("NORTE");
             }
             // --- Zona 3 ---
-            if (estaEnPosicion(Posicion, this, 1, 21)) {
+            if (estaEnPosicion( this, 1, 21)) {
                 zonaCritica3.salirZona("SUR");
                 
-                int turno3sur = zonaCritica3.getTurno3sur();
-                String turno3= zonaCritica3.getTurno();
-                if(turno3.equals("SUR")){
-                    zonaCritica3.setTurno3sur(turno3sur + 1);
-                }
-                if (turno3sur % 4 == 0 && ((turno3sur / 4) % 2 == 1)) {
-                    zonaCritica3.setTurno("SUR");
-                }
-            System.out.println("Turno Zona 3: " + turno3sur);
-            } else if (estaEnPosicion(Posicion, this, 1, 16)) {
+            } else if (estaEnPosicion( this, 1, 16)) {
                 zonaCritica3.salirZona("NORTE");
+                Thread.sleep(100);
             }
+
+            
             // actualizar coordenadas
             street = nuevaStreet;
             avenue = nuevaAvenue;
@@ -133,11 +151,20 @@ class TransportRobot extends Robot implements Runnable {
     private void elegirCaminoSegunPosicion() {
         if (nextToABeeper()) {
             java.util.Random rand = new java.util.Random();
-            KJRTest Posicion = new KJRTest();
-            if (estaEnPosicion(Posicion, this, 1, 7)) {
+            int robotsabajo = mapaOcupacion.contarRobotsEnFranja(1, 11, 16);
+            int robotsarriba = mapaOcupacion.contarRobotsEnFranja(10, 24, 29);
+            if (estaEnPosicion( this, 1, 7)) {
+                if(robotsabajo >= 4){
+                Utils.caminoAzulLargo(this);
+                } else {
                 Utils.caminoAzulRapido(this);
-            } else if (estaEnPosicion(Posicion, this, 12, 23)) {
+                }
+            } else if (estaEnPosicion( this, 12, 23)) {
+                if(robotsarriba >= 5){
+                Utils.caminoVerdeLargo(this);
+                } else {
                 Utils.caminoVerdeRapido(this);
+                }
             }
         }
     }
