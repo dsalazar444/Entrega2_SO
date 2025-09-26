@@ -244,7 +244,6 @@ public class Utils {
             for (int i=0; i<6; i++) r.moverConControl();
     }
     public static void arranqueVerde(TransportRobot r) {
-        KJRTest Posicion = new KJRTest();
         if (TransportRobot.estaEnPosicion( r, 13, 23)) {
             for(int i=0; i<1; i++) r.moverConControl(); 
         }
@@ -726,7 +725,6 @@ public class Utils {
         }
     }
     public static void arranqueAzul(TransportRobot r) {
-        KJRTest Posicion = new KJRTest();
         if (TransportRobot.estaEnPosicion( r, 1, 6)) {
             for(int i=0; i<1; i++) r.moverConControl(); 
         }

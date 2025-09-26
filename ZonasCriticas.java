@@ -1,6 +1,6 @@
 import java.util.concurrent.Semaphore;
 public class ZonasCriticas {
-    private final Semaphore mutex = new Semaphore(1, true);
+    private final Semaphore semaforo = new Semaphore(1, true);
 
     private int dentroNorte = 0;
     private int dentroSur = 0;
@@ -10,12 +10,11 @@ public class ZonasCriticas {
     private int esperandoSur = 0;
 
 
-    private int turno3sur = 1;
     private String turno = ""; // NORTE o SUR
 
     public void entrarNorte() throws InterruptedException {
     while (true) {
-        mutex.acquire();
+        semaforo.acquire();
         esperandoNorte++;
 
         if (turno.equals("")) {
@@ -26,7 +25,7 @@ public class ZonasCriticas {
             esperandoNorte--;
             dentroNorte++;
             pasaronNorte++;
-            mutex.release();
+            semaforo.release();
 
             System.out.println(">> Entrada NORTE: dentroNorte=" + dentroNorte + " turno=" + turno);
             return;
@@ -42,13 +41,13 @@ public class ZonasCriticas {
             turno = "SUR";
         }
 
-        mutex.release();
+        semaforo.release();
         Thread.sleep(10);
     }
 }
 public void entrarSur() throws InterruptedException {
     while (true) {
-        mutex.acquire();
+        semaforo.acquire();
         esperandoSur++;
 
         if (turno.equals("")) {
@@ -59,7 +58,7 @@ public void entrarSur() throws InterruptedException {
             esperandoSur--;
             dentroSur++;
             pasaronSur++;
-            mutex.release();
+            semaforo.release();
 
             System.out.println(">> Entrada SUR: dentroSur=" + dentroSur + " turno=" + turno);
             return;
@@ -71,7 +70,7 @@ public void entrarSur() throws InterruptedException {
             turno = "NORTE";
         }
 
-        mutex.release();
+        semaforo.release();
         Thread.sleep(10);
     }
 }
@@ -79,7 +78,7 @@ public void entrarSur() throws InterruptedException {
 
     public void salirZona(String lado) {
         try {
-            mutex.acquire();
+            semaforo.acquire();
             if (lado.equals("NORTE")) {
                 dentroNorte--;
                 if (pasaronNorte == 4 && dentroNorte == 0) {
@@ -101,16 +100,16 @@ public void entrarSur() throws InterruptedException {
             }
 
             System.out.println("Salida " + lado + ". Dentro Norte: " + dentroNorte + ", Dentro Sur: " + dentroSur + ", Pasaron Sur: " + pasaronSur + ", Pasaron Norte: " + pasaronNorte + ", Turno: " + turno);
-            mutex.release();
+            semaforo.release();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
     public String getTurno() {
         try {
-            mutex.acquire();
+            semaforo.acquire();
             String t = turno;
-            mutex.release();
+            semaforo.release();
             return t;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -120,10 +119,10 @@ public void entrarSur() throws InterruptedException {
     
     public void setTurno(String nuevoTurno) {
     try {
-        mutex.acquire();
+        semaforo.acquire();
         turno = nuevoTurno;
         
-        mutex.release();
+        semaforo.release();
     } catch (InterruptedException e) {
         e.printStackTrace();
     }

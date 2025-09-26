@@ -200,18 +200,4 @@ class TransportRobot extends Robot implements Runnable {
         return passengers > 0;
     }
 
-    private void unloadPassengers() {
-        while (passengers > 0) {
-            putBeeper();
-            passengers--;
-        }
-    }
-
-    private void moveToDestination() {
-        // lógica de las rutas (rápida o larga)
-    }
-
-    private void moveBackToOrigin() {
-        // la lógica de regreso (Otra ruta distinta a la inicial para que no estorbe (?))
-    }
 }
