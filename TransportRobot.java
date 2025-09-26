@@ -67,6 +67,10 @@ class TransportRobot extends Robot implements Runnable {
             if (estaEnPosicion( this, 10, 29)) {
                 Thread.sleep(100);
             }
+            if(estaEnPosicion( this, 11, 22)){
+                pasoPor1123 = false;
+                Thread.sleep(100);
+            }
             if ((estaEnPosicion( this, 10, 29) && pasoPor1123)) {
                 zonaCritica.entrarNorte();
                 pasoPor1123 = false;
