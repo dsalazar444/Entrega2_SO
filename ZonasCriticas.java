@@ -9,72 +9,99 @@ public class ZonasCriticas {
     private int esperandoNorte = 0;
     private int esperandoSur = 0;
 
-
     private String turno = ""; // NORTE o SUR
 
+    // --- NUEVO ---
+    private long inicioEsperaNorte = 0;
+    private long inicioEsperaSur = 0;
+    private static final long LIMITE_ESPERA = 80_000; // 80 segundos
+    // -------------
+
     public void entrarNorte() throws InterruptedException {
-    while (true) {
-        semaforo.acquire();
-        esperandoNorte++;
+        while (true) {
+            semaforo.acquire();
 
-        if (turno.equals("")) {
-            turno = "NORTE";
-        }
+            if (esperandoNorte == 0) {
+                inicioEsperaNorte = System.currentTimeMillis(); // primer norte en esperar
+            }
+            esperandoNorte++;
 
-        if (turno.equals("NORTE") && pasaronNorte < 4) {
-            esperandoNorte--;
-            dentroNorte++;
-            pasaronNorte++;
+            if (turno.equals("")) {
+                turno = "NORTE";
+            }
+
+            // --- NUEVO: forzar cambio por tiempo ---
+            if (esperandoNorte > 0 && (System.currentTimeMillis() - inicioEsperaNorte) >= LIMITE_ESPERA) {
+                turno = "NORTE";
+                pasaronNorte = 0;
+                pasaronSur = 0;
+            }
+            // --------------------------------------
+
+            if (turno.equals("NORTE") && pasaronNorte < 4) {
+                esperandoNorte--;
+                dentroNorte++;
+                pasaronNorte++;
+                if (esperandoNorte == 0) inicioEsperaNorte = 0; // reinicio
+                semaforo.release();
+
+                System.out.println(">> Entrada NORTE: dentroNorte=" + dentroNorte + " turno=" + turno);
+                return;
+            }
+
+            if (pasaronNorte == 4 && dentroNorte == 0 && esperandoSur > 0) {
+                pasaronNorte = 0;
+                pasaronSur = 0;
+                turno = "SUR";
+            }
+
             semaforo.release();
-
-            System.out.println(">> Entrada NORTE: dentroNorte=" + dentroNorte + " turno=" + turno);
-            return;
+            Thread.sleep(10);
         }
-
-        // Solo cambiar de turno si:
-        // - ya pasaron 4 del norte
-        // - nadie más está dentro
-        // - Y HAY alguien esperando del SUR
-        if (pasaronNorte == 4 && dentroNorte == 0 && esperandoSur > 0) {
-            pasaronNorte = 0;
-            pasaronSur = 0;
-            turno = "SUR";
-        }
-
-        semaforo.release();
-        Thread.sleep(10);
     }
-}
-public void entrarSur() throws InterruptedException {
-    while (true) {
-        semaforo.acquire();
-        esperandoSur++;
 
-        if (turno.equals("")) {
-            turno = "SUR";
-        }
+    public void entrarSur() throws InterruptedException {
+        while (true) {
+            semaforo.acquire();
 
-        if (turno.equals("SUR") && pasaronSur < 4) {
-            esperandoSur--;
-            dentroSur++;
-            pasaronSur++;
+            if (esperandoSur == 0) {
+                inicioEsperaSur = System.currentTimeMillis(); // primer sur en esperar
+            }
+            esperandoSur++;
+
+            if (turno.equals("")) {
+                turno = "SUR";
+            }
+
+            // --- NUEVO: forzar cambio por tiempo ---
+            if (esperandoSur > 0 && (System.currentTimeMillis() - inicioEsperaSur) >= LIMITE_ESPERA) {
+                turno = "SUR";
+                pasaronNorte = 0;
+                pasaronSur = 0;
+            }
+            // --------------------------------------
+
+            if (turno.equals("SUR") && pasaronSur < 4) {
+                esperandoSur--;
+                dentroSur++;
+                pasaronSur++;
+                if (esperandoSur == 0) inicioEsperaSur = 0; // reinicio
+                semaforo.release();
+
+                System.out.println(">> Entrada SUR: dentroSur=" + dentroSur + " turno=" + turno);
+                return;
+            }
+
+            if (pasaronSur == 4 && dentroSur == 0 && esperandoNorte > 0) {
+                pasaronSur = 0;
+                pasaronNorte = 0;
+                turno = "NORTE";
+            }
+
             semaforo.release();
-
-            System.out.println(">> Entrada SUR: dentroSur=" + dentroSur + " turno=" + turno);
-            return;
+            Thread.sleep(10);
         }
-
-        if (pasaronSur == 4 && dentroSur == 0 && esperandoNorte > 0) {
-            pasaronSur = 0;
-            pasaronNorte = 0;
-            turno = "NORTE";
-        }
-
-        semaforo.release();
-        Thread.sleep(10);
     }
-}
-
 
     public void salirZona(String lado) {
         try {
@@ -105,6 +132,7 @@ public void entrarSur() throws InterruptedException {
             e.printStackTrace();
         }
     }
+
     public String getTurno() {
         try {
             semaforo.acquire();
@@ -118,16 +146,13 @@ public void entrarSur() throws InterruptedException {
     }
     
     public void setTurno(String nuevoTurno) {
-    try {
-        semaforo.acquire();
-        turno = nuevoTurno;
-        
-        semaforo.release();
-    } catch (InterruptedException e) {
-        e.printStackTrace();
+        try {
+            semaforo.acquire();
+            turno = nuevoTurno;
+            semaforo.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-    
 }
 
-   
-}
