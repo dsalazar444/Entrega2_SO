@@ -14,7 +14,7 @@ public class ZonasCriticas {
     // --- NUEVO ---
     private long inicioEsperaNorte = 0;
     private long inicioEsperaSur = 0;
-    private static final long LIMITE_ESPERA = 80_000; // 80 segundos
+    private static final long LIMITE_ESPERA = 60_000; // 1 minuto
     // -------------
 
     public void entrarNorte() throws InterruptedException {
@@ -35,8 +35,7 @@ public class ZonasCriticas {
                 turno = "NORTE";
                 pasaronNorte = 0;
                 pasaronSur = 0;
-            }
-            // --------------------------------------
+            } 
 
             if (turno.equals("NORTE") && pasaronNorte < 4) {
                 esperandoNorte--;
@@ -155,4 +154,3 @@ public class ZonasCriticas {
         }
     }
 }
-

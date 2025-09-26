@@ -32,7 +32,6 @@ class TransportRobot extends Robot implements Runnable {
     public int getStreet() { return street; }
     public int getAvenue() { return avenue; }
 
-
     public static boolean estaEnPosicion(TransportRobot robot, int calle, int avenida) {
         return robot.getStreet() == calle && robot.getAvenue() == avenida;
     }
@@ -50,7 +49,6 @@ class TransportRobot extends Robot implements Runnable {
             } else if (facingWest()) {
                 nuevaAvenue--;
             }
-            
             
             // --- salidas de las zonas críticas ---
             // --- Zona 1 ---
@@ -77,8 +75,7 @@ class TransportRobot extends Robot implements Runnable {
                 
             } else if (estaEnPosicion( this, 4, 30)) {
                 Thread.sleep(500);
-                zonaCritica.entrarSur();
-                
+                zonaCritica.entrarSur();     
             }
             
             // --- Zona 2 ---
@@ -99,25 +96,20 @@ class TransportRobot extends Robot implements Runnable {
                 Thread.sleep(500);
                 zonaCritica3.entrarSur();
             }
-            
-
 
             // ocupar la celda destino (bloquea hasta que esté libre)
             Thread.sleep(50);
 
             mapaOcupacion.ocupar(nuevaStreet, nuevaAvenue);
             
-            
             // mover físicamente
             move();
             
             // liberar la actual
-            mapaOcupacion.liberar(street, avenue);
-            
+            mapaOcupacion.liberar(street, avenue);      
             
             // --- salidas de las zonas críticas ---
             // --- Zona 1 ---
-
             
             if (estaEnPosicion( this, 10, 30) && pasoPor430) {
                 zonaCritica.salirZona("SUR");
@@ -140,8 +132,7 @@ class TransportRobot extends Robot implements Runnable {
                 zonaCritica3.salirZona("NORTE");
                 Thread.sleep(100);
             }
-
-            
+   
             // actualizar coordenadas
             street = nuevaStreet;
             avenue = nuevaAvenue;
@@ -150,7 +141,6 @@ class TransportRobot extends Robot implements Runnable {
             e.printStackTrace();
         }
     }
-
 
     private void elegirCaminoSegunPosicion() {
         if (nextToABeeper()) {
@@ -199,5 +189,4 @@ class TransportRobot extends Robot implements Runnable {
         }
         return passengers > 0;
     }
-
 }
